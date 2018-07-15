@@ -7,7 +7,7 @@
     <string name="sortorder">sort_order</string>
     <string name="thumbImage">thumb Nail Image</string>
     <string name="poster_image">Poster Image</string>
-    <string name="no_nw_available">"No Internet Connection"</string>
+    <string name="no_nw_available">"No Internet Connection, will try to load offline data"</string>
     <string name="mark_as_favorite">Mark as favorite</string>
     <string name="trailers">TRAILERS</string>
     <string name="reviews">REVIEWS</string>
