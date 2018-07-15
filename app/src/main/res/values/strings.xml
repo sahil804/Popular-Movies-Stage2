@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+    <string name="title_movie_detail">Movie Detail</string>
+    <string name="action_settings">settings</string>
+    <string name="sort_order">Sort Order</string>
+    <string name="popular">popular</string>
+    <string name="sortorder">sort_order</string>
+    <string name="thumbImage">thumb Nail Image</string>
+    <string name="poster_image">Poster Image</string>
+    <string name="no_nw_available">"No Internet Connection"</string>
+    <string name="mark_as_favorite">Mark as favorite</string>
+    <string name="trailers">TRAILERS</string>
+    <string name="reviews">REVIEWS</string>
+    <string name="movie_image">movie image</string>
+    <string name="poster_image_content">poster image</string>
+    <string name="thumbnail_content">thumbnail</string>
+    <string name="play_trailer_image_content">play trailer image</string>
+</resources>

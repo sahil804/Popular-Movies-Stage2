@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        android:defaultValue="@string/popular"
+        android:dialogTitle="@string/sort_order"
+        android:entries="@array/sort_order_entries"
+        android:entryValues="@array/sort_order_values"
+        android:key="@string/sortorder"
+        android:summary="@string/sort_order"
+        android:title="@string/sort_order"
+        />
+        <!--android:dialogTitle="@string/title_upload_quality"
+        android:entries="@array/pref_upload_quality_entries"
+        android:entryValues="@array/pref_upload_quality_values"
+        android:key="@string/key_upload_quality"
+        android:summary="@string/summary_upload_video_quality"
+        android:title="@string/title_upload_quality"-->
+
+</PreferenceScreen>
