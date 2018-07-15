@@ -1,2 +1,4 @@
 # Popular-Movies-Stage2
-Add api inside build.gradle
+Retrofit, MVVM, Clean Architecture, Live Data, ROOM database
+Use the API from themoviedb.org 
+Add api key inside build.gradle
