@@ -39,7 +39,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.MovieAdapterViewHolder holder, int position) {
-        String url = Constants.BASE_IMAGE_URL + movieItems.get(position).getBackdropPath();
+        String url = Constants.BASE_IMAGE_URL + movieItems.get(holder.getAdapterPosition()).getBackdropPath();
         Picasso.with(mContext).load(url).placeholder(com.example.sahil.popularmovies.R.drawable.ic_launcher_foreground).into(holder.iconMovieView);
     }
 

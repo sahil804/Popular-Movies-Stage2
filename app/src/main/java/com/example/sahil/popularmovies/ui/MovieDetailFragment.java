@@ -2,6 +2,7 @@ package com.example.sahil.popularmovies.ui;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -168,6 +169,11 @@ public class MovieDetailFragment extends Fragment implements TrailerAdapter.Trai
     public void onClick(String key) {
         Intent intent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse(Constants.YOUTUBE_URL + key));
-        startActivity(intent);
+        PackageManager packageManager = getActivity().getPackageManager();
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent);
+        } else {
+            Log.d(TAG, "No Intent available to handle action");
+        }
     }
 }

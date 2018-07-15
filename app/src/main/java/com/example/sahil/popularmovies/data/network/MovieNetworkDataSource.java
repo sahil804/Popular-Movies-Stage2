@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.util.Log;
 
+import com.example.sahil.popularmovies.BuildConfig;
 import com.example.sahil.popularmovies.models.MovieDetails;
 import com.example.sahil.popularmovies.models.Reviews;
 import com.example.sahil.popularmovies.models.Trailers;
@@ -46,7 +47,7 @@ public class MovieNetworkDataSource {
         if(!sortTypeChange.equalsIgnoreCase(Constants.FAVORITE)) {
             ApiInterface apiInterface = ServiceBuilder.buildService(ApiInterface.class);
             Call<MovieDetails> movieDetailsCall;
-            movieDetailsCall = apiInterface.getMovieDetails(sortTypeChange, Constants.API_KEY_VALUE);
+            movieDetailsCall = apiInterface.getMovieDetails(sortTypeChange, BuildConfig.MY_MOVIE_DB_API_KEY);
             movieDetailsCall.enqueue(new Callback<MovieDetails>() {
                 @Override
                 public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
@@ -77,7 +78,7 @@ public class MovieNetworkDataSource {
     public LiveData<List<Trailers.TrailerItem>> getTrailers(int movieId) {
         ApiInterface apiInterface = ServiceBuilder.buildService(ApiInterface.class);
         Call<Trailers> trailersCall;
-        trailersCall = apiInterface.getTrailers(movieId, Constants.API_KEY_VALUE);
+        trailersCall = apiInterface.getTrailers(movieId, BuildConfig.MY_MOVIE_DB_API_KEY);
         trailersCall.enqueue(new Callback<Trailers>() {
             @Override
             public void onResponse(Call<Trailers> call, Response<Trailers> response) {
@@ -99,7 +100,7 @@ public class MovieNetworkDataSource {
     public LiveData<List<Reviews.ReviewItem>> getReviews(int movieId) {
         ApiInterface apiInterface = ServiceBuilder.buildService(ApiInterface.class);
         Call<Reviews> reviewsCall;
-        reviewsCall = apiInterface.getReviews(movieId, Constants.API_KEY_VALUE);
+        reviewsCall = apiInterface.getReviews(movieId, BuildConfig.MY_MOVIE_DB_API_KEY);
         reviewsCall.enqueue(new Callback<Reviews>() {
             @Override
             public void onResponse(Call<Reviews> call, Response<Reviews> response) {

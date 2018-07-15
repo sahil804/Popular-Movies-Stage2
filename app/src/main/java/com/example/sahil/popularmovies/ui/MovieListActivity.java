@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ import com.example.sahil.popularmovies.utilities.Constants;
 public class MovieListActivity extends AppCompatActivity implements MovieAdapter.MovieAdapterOnClickHandler {
 
     private static final String TAG = MovieListActivity.class.getSimpleName();
+    private static final String LIST_STATE_KEY = "state_key";
     /**
      * Whether or not the activity is in two-pane mode, i.e. running on a tablet
      * device.
@@ -44,12 +46,16 @@ public class MovieListActivity extends AppCompatActivity implements MovieAdapter
     private MovieAdapter movieAdapter;
     private boolean mTwoPane;
     private String currentSortOrder;
+    private LinearLayoutManager layoutManager;
+    private Parcelable mListState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(com.example.sahil.popularmovies.R.layout.activity_movie_list);
 
+        if(savedInstanceState != null)
+        mListState=savedInstanceState.getParcelable(LIST_STATE_KEY);
         currentSortOrder = PreferenceManager.getDefaultSharedPreferences(this).
                 getString(getResources().getString(R.string.sortorder), getResources().getString(R.string.popular));
         Toolbar toolbar = findViewById(com.example.sahil.popularmovies.R.id.toolbar);
@@ -69,7 +75,9 @@ public class MovieListActivity extends AppCompatActivity implements MovieAdapter
         setupRecyclerView(mRecyclerView);
         mViewModel = ViewModelProviders.of(this).get(MovieListViewModel.class);
         mViewModel.setOrder(currentSortOrder);
-        movieAdapter.setMovieData(mViewModel.getMovieListLiveData().getValue());
+        /*movieAdapter.setMovieData(mViewModel.getMovieListLiveData().getValue());
+        if(mListState != null)
+            mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);*/
         mViewModel.getMovieListLiveData().observe(this, movieItems -> {
             if(movieItems != null) {
                 Log.d(TAG, "onCreate: movieItems "+movieItems.size());
@@ -77,9 +85,19 @@ public class MovieListActivity extends AppCompatActivity implements MovieAdapter
                     Log.d(TAG, "onCreate: movieItem: "+movieItem);
                 }
                 movieAdapter.setMovieData(movieItems);
+                if(mListState != null) {
+                    Log.d(TAG, "onCreate: "+mListState);
+                    mRecyclerView.getLayoutManager().onRestoreInstanceState(mListState);
+                }
             }
         });
         //if(isOnline()) getSupportLoaderManager().initLoader(MOVIE_DATA_LOADER_ID, null, this);
+    }
+
+    protected void onSaveInstanceState(Bundle state) {
+        super.onSaveInstanceState(state);
+        Log.d(TAG, "onSaveInstanceState: ");
+        state.putParcelable(LIST_STATE_KEY, mRecyclerView.getLayoutManager().onSaveInstanceState());
     }
 
     @Override
@@ -97,13 +115,12 @@ public class MovieListActivity extends AppCompatActivity implements MovieAdapter
             mViewModel.setOrder(currentSortOrder);
             //getSupportLoaderManager().restartLoader(MOVIE_DATA_LOADER_ID, null, this);
         }
-
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
 
-        LinearLayoutManager layoutManager
+        layoutManager
                 = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(gridLayoutManager); // set LayoutManager to RecyclerView
         mRecyclerView.setHasFixedSize(true);
